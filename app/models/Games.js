@@ -25,13 +25,17 @@ const gamesSchema = new mongoose.Schema(
         "Sport",
         "Strategy",
         "MOBA",
-        "MMO"
+        "MMO",
       ],
     },
     averageScore: {
       type: Number,
       min: [0, "Rating cannot be lower than 0."],
       max: [10, "Rating cannot be more than 10"],
+    },
+    studio: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Studio",
     },
   },
   { timestamps: true }
