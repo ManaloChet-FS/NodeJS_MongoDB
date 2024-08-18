@@ -48,7 +48,7 @@ exports.createGame = async (req, res) => {
   try {
     const { game } = req.body;
     const newGame = await Games.create(game);
-    res.status(200).json({
+    res.status(201).json({
       data: newGame,
       success: true,
       message: `${req.method} = request to Games endpoint`,
@@ -101,7 +101,9 @@ exports.deleteGame = async (req, res) => {
   try {
     const { id } = req.params;
     game = await Games.findByIdAndDelete(id);
+    games = await Games.find();
     res.status(200).json({
+      data: games,
       success: true,
       message: `${req.method} = request to Games endpoint`,
     });

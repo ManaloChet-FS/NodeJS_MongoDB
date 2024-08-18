@@ -48,7 +48,7 @@ exports.createStudio = async (req, res) => {
   try {
     const { studio } = req.body;
     const newStudio = await Studios.create(studio);
-    res.status(200).json({
+    res.status(201).json({
       data: newStudio,
       success: true,
       message: `${req.method} = request to Studios endpoint`,
@@ -101,7 +101,9 @@ exports.deleteStudio = async (req, res) => {
   try {
     const { id } = req.params;
     studio = await Studios.findByIdAndDelete(id);
+    studios = await Studios.find();
     res.status(200).json({
+      data: studios,
       success: true,
       message: `${req.method} = request to Studios endpoint`,
     });
