@@ -1,20 +1,25 @@
 const Studios = require("../models/Studios");
+const Messages = require("../messages/messages");
 
 exports.getAllStudios = async (req, res) => {
   try {
-    const studios = await Studios.find();
+    const studios = await Studios.find()
+      .select(
+        "_id name yearEstablished country status games createdAt updatedAt"
+      )
+      .populate("games", "_id title");
     res.status(200).json({
       data: studios,
       success: true,
-      message: `${req.method} = request to Studios endpoint`,
+      message: Messages.dataRetrieved,
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({
       success: false,
-      message: `${req.method} = request to Studios endpoint`,
-      error
-    })
+      message: Messages.serverError,
+      error,
+    });
   }
 };
 
@@ -22,24 +27,28 @@ exports.getStudioById = async (req, res) => {
   let studio;
   try {
     const { id } = req.params;
-    studio = await Studios.findById(id);
+    studio = await Studios.findById(id)
+      .select(
+        "_id name yearEstablished country status games createdAt updatedAt"
+      )
+      .populate("games", "_id title");
     res.status(200).json({
       data: studio,
       success: true,
-      message: `${req.method} = request to Studios endpoint`,
+      message: Messages.dataRetrieved,
     });
   } catch (error) {
     if (studio === undefined || studio === null) {
       res.status(404).json({
         success: false,
-        message: `Studio not found.`,
-      })
+        message: Messages.studioNotFound,
+      });
     } else {
       res.status(500).json({
         success: false,
-        message: `${req.method} = request to Studios endpoint`,
-        error
-      })
+        message: Messages.serverError,
+        error,
+      });
     }
   }
 };
@@ -51,21 +60,21 @@ exports.createStudio = async (req, res) => {
     res.status(201).json({
       data: newStudio,
       success: true,
-      message: `${req.method} = request to Studios endpoint`,
+      message: Messages.studioCreated,
     });
   } catch (error) {
     if (error.name === "ValidationError") {
       res.status(422).json({
         success: false,
-        message: `${req.method} = request to Studios endpoint`,
-        error
-      })
+        message: Messages.validationError,
+        error,
+      });
     } else {
       res.status(500).json({
         success: false,
-        message: `${req.method} = request to Studios endpoint`,
-        error
-      })
+        message: Messages.serverError,
+        error,
+      });
     }
   }
 };
@@ -78,20 +87,20 @@ exports.updateStudio = async (req, res) => {
     res.status(200).json({
       data: studio,
       success: true,
-      message: `${req.method} = request to Studios endpoint`,
+      message: Messages.studioUpdated,
     });
   } catch (error) {
     if (studio === undefined || studio === null) {
       res.status(404).json({
         success: false,
-        message: `Studio not found.`,
-      })
+        message: Messages.studioNotFound,
+      });
     } else {
       res.status(500).json({
         success: false,
-        message: `${req.method} = request to Studios endpoint`,
-        error
-      })
+        message: Messages.serverError,
+        error,
+      });
     }
   }
 };
@@ -105,20 +114,20 @@ exports.deleteStudio = async (req, res) => {
     res.status(200).json({
       data: studios,
       success: true,
-      message: `${req.method} = request to Studios endpoint`,
+      message: Messages.studioDeleted,
     });
   } catch {
     if (studio === undefined || studio === null) {
       res.status(404).json({
         success: false,
-        message: `Studio not found.`,
-      })
+        message: Messages.studioNotFound,
+      });
     } else {
       res.status(500).json({
         success: false,
-        message: `${req.method} = request to Studios endpoint`,
-        error
-      })
+        message: Messages.serverError,
+        error,
+      });
     }
   }
 };

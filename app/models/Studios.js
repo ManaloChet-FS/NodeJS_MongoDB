@@ -10,7 +10,9 @@ const studiosSchema = new mongoose.Schema(
     yearEstablished: {
       type: Number,
       required: [true, "Year established is required."],
+      // Gets the current year and sets it as the max
       max: [new Date().getFullYear(), "Year cannot be in the future."],
+      // Checks for a 4 digit number
       match: [/^\d{4}$/, "Enter a valid year."],
     },
     country: {
@@ -20,8 +22,15 @@ const studiosSchema = new mongoose.Schema(
     status: {
       type: String,
       required: [true, "Studio status is required."],
+      // Must be 1 of 3 statuses
       enum: ["Active", "Closed", "Merged"],
     },
+    games: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Game",
+      },
+    ],
   },
   { timestamps: true }
 );

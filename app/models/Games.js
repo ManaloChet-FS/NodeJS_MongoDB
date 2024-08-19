@@ -16,6 +16,7 @@ const gamesSchema = new mongoose.Schema(
     genre: {
       type: [String],
       required: [true, "Please specify the game's genre"],
+      // Can only include genre's in the list below
       enum: [
         "Shooter",
         "Platformer",
@@ -26,6 +27,7 @@ const gamesSchema = new mongoose.Schema(
         "Strategy",
         "MOBA",
         "MMO",
+        "Stealth"
       ],
     },
     averageScore: {
@@ -36,6 +38,7 @@ const gamesSchema = new mongoose.Schema(
     studio: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Studio",
+      required: [true, "Game studio is required."]
     },
   },
   { timestamps: true }
