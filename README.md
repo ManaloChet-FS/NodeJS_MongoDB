@@ -1,4 +1,4 @@
-# 2.6 - NodeJS MongoDB (Second Collections)
+# NodeJS MongoDB Second Collections Branch
 This branch is essentially like main, but now has relationships between collections.
 ## Routes & Methods
 - GET
