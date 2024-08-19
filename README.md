@@ -1,5 +1,5 @@
-# 2.6 - NodeJS MongoDB
-A server that utilizes express routes to perform CRUD actions on a mongo database. Mongoose is utilized to create schemas and includes validation of schemas. The database consists of a games collection and a studios collection.
+# 2.6 - NodeJS MongoDB (Second Collections)
+This branch is essentially like main, but now has relationships between collections.
 ## Routes & Methods
 - GET
   - localhost:3000/api/v1/games (Returns all games)
