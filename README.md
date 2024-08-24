@@ -11,6 +11,8 @@ Search queries and jest tests.
 - Sorting
   - <code>sort=propertyName</code> || Sorts property in ascending order
   - <code>sort=-propertyName</code> || Sorts property in descending order
+## Testing
+Testing is done with Jest, Supertest, and mongodb-memory-server. The testing file is located at app/controllers/gameController.test.js
 ## Dependencies
 - express
 - dotenv
