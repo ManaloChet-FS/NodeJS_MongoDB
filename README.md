@@ -1,28 +1,28 @@
-# 2.6 - NodeJS MongoDB
-A server that utilizes express routes to perform CRUD actions on a mongo database. Mongoose is utilized to create schemas and includes validation of schemas. The database consists of a games collection and a studios collection.
-## Routes & Methods
-- GET
-  - localhost:3000/api/v1/games (Returns all games)
-  - localhost:3000/api/v1/studios (Returns all studios)
-  - localhost:3000/api/v1/games/:id (Returns a single game based on ID)
-  - localhost:3000/api/v1/studios/:id (Returns a single studio based on ID)
-- POST
-  - localhost:3000/api/v1/games (Creates a game)
-  - localhost:3000/api/v1/studios (Creates a studio)
-- PUT
-  - localhost:3000/api/v1/games/:id (Updates a game based on ID)
-  - localhost:3000/api/v1/studios/:id (Updates a studio based on ID)
-- DELETE
-  - localhost:3000/api/v1/games/:id (Deletes a game based on ID)
-  - localhost:3000/api/v1/studios/:id (Deletes a studio based on ID)
+# Module 3 Branch
+Search queries and jest tests.
+## Queries
+- <code>propertyName=value</code> || Returns the document where a property equals the value
+- Comparisons
+  - <code>propertyName[gt]=5</code> || Property value is greater than 5
+  - <code>propertyName[gte]=5</code> || Property value is greater than or equal to 5
+  - <code>propertyName[lt]=5</code> || Property value is less than 5
+  - <code>propertyName[lte]=5</code> || Property value is less than or equal to 5
+- <code>select=propertyOne,propertyTwo</code> || Returns only the properties named in a document
+- Sorting
+  - <code>sort=propertyName</code> || Sorts property in ascending order
+  - <code>sort=-propertyName</code> || Sorts property in descending order
 ## Dependencies
-- express (required)
-- dotenv (required)
-- mongoose (required)
-- morgan (required)
-- nodemon (optional)
+- express
+- dotenv
+- mongoose
+- morgan
+## Dev Dependencies
+- nodemon
+- jest
+- supertest
+- mongodb-memory-server
 
-To automatically install required dependencies, use <code>npm install</code> in the terminal. To install dependencies manually, use <code>npm install (dependency name)</code>.
+To install dependencies, use <code>npm install</code> in the terminal. To install dependencies manually, use <code>npm install (dependency name)</code>.
 ## Run the server
 After installing dependencies..<br>
 <code>npm run start</code> or <code>npm run dev</code> (If nodemon is installed)

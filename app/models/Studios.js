@@ -23,7 +23,10 @@ const studiosSchema = new mongoose.Schema(
       type: String,
       required: [true, "Studio status is required."],
       // Must be 1 of 3 statuses
-      enum: ["Active", "Closed", "Merged"],
+      enum: {
+        values: ["Active", "Closed", "Merged"],
+        message: '{VALUE} is not a valid status.'
+      },
     },
     games: [
       {

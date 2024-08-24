@@ -3,11 +3,31 @@ const Messages = require("../messages/messages");
 
 exports.getAllStudios = async (req, res) => {
   try {
-    const studios = await Studios.find()
-      .select(
-        "_id name yearEstablished country status games createdAt updatedAt"
-      )
-      .populate("games", "_id title");
+    let queryString = JSON.stringify(req.query);
+    queryString = queryString.replace(
+      /\b(gt|gte|lt|lte)\b/g,
+      (match) => `$${match}`
+    );
+    let query = Studios.find(JSON.parse(queryString));
+
+    if (req.query.select) {
+      const fields = req.query.select.split(",").join(" ");
+      query = Studios.find({}).select(fields);
+      
+    }
+
+    if (req.query.sort) {
+      const sortBy = req.query.sort.split(",").join(" ");
+      query = Studios.find({}).sort(sortBy);
+    }
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 2;
+    const skip = (page - 1) * limit;
+
+    query.skip(skip).limit(limit);
+
+    const studios = await query;
     res.status(200).json({
       data: studios,
       success: true,
@@ -64,10 +84,18 @@ exports.createStudio = async (req, res) => {
     });
   } catch (error) {
     if (error.name === "ValidationError") {
+      let errorString = '';
+      // Converts the errors object into an array
+      const errArray = Object.values(error.errors);
+
+      // Adds the error message on each error onto the errorString
+      errArray.forEach(err => {
+        errorString += err.message + ' ';
+      })
+
       res.status(422).json({
         success: false,
-        message: Messages.validationError,
-        error,
+        message: errorString.trimEnd(),
       });
     } else {
       res.status(500).json({
